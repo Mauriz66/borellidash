@@ -11,6 +11,7 @@ import { ArrowLeft, MessageCircle, Calendar, MapPin, Users, IceCream, Truck, Han
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { formatDateLong, toLocalYMD } from '@/lib/date';
 import { useState } from 'react';
 import { LeadStatus, Lead } from '@/types/lead';
 import { toast } from 'sonner';
@@ -139,13 +140,7 @@ const LeadDetails = () => {
     );
   }
 
-  const formatDate = (dateString: string) => {
-    try {
-      return format(new Date(dateString), "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
-    } catch {
-      return dateString;
-    }
-  };
+  const formatDate = (dateString: string) => formatDateLong(dateString);
 
   const handleStatusChange = (newStatus: LeadStatus) => {
     setCurrentStatus(newStatus);

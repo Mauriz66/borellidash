@@ -11,6 +11,7 @@ import { useMemo, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Lead } from '@/types/lead';
+import { parseLocalDateString } from '@/lib/date';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Dashboard = () => {
     const now = new Date();
     const list = leads || [];
     return list.filter(lead => {
-      const date = new Date(lead.Data_Solicitacao);
+      const date = parseLocalDateString(lead.Data_Solicitacao);
       
       switch (dateFilter) {
         case 'last30': {
@@ -60,7 +61,7 @@ const Dashboard = () => {
 
     // Leads do mês atual
     const leadsDoMes = filteredLeads.filter(lead => {
-      const date = new Date(lead.Data_Solicitacao);
+      const date = parseLocalDateString(lead.Data_Solicitacao);
       return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
     }).length;
 
@@ -122,7 +123,7 @@ const Dashboard = () => {
     const volumes = meses.map((mes, index) => ({
       mes,
       count: filteredLeads.filter(lead => {
-        const date = new Date(lead.Data_Solicitacao);
+        const date = parseLocalDateString(lead.Data_Solicitacao);
         return date.getMonth() === index;
       }).length
     }));

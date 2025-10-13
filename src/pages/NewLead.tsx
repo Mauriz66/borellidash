@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { toLocalYMD } from '@/lib/date';
 
 const schema = z.object({
   Nome: z.string().min(2, 'Informe o nome'),
@@ -73,7 +74,7 @@ const NewLead = () => {
       Telefone: '',
       Link_WhatsApp: '',
       Status: 'Novo',
-      Data_Solicitacao: new Date().toISOString().slice(0, 10),
+      Data_Solicitacao: toLocalYMD(new Date()),
       Tipo_Evento: '',
       Data_Evento: '',
       Num_Convidados: 0,

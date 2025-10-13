@@ -9,6 +9,7 @@ import { Calendar, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { formatDateLong } from '@/lib/date';
 import { useState } from 'react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -55,13 +56,7 @@ export const LeadCard = ({ lead }: LeadCardProps) => {
     onError: (e: Error) => toast.error(`Erro ao atualizar status: ${e.message}`),
   });
 
-  const formatDate = (dateString: string) => {
-    try {
-      return format(new Date(dateString), "dd 'de' MMMM 'de' yyyy", { locale: ptBR });
-    } catch {
-      return dateString;
-    }
-  };
+  const formatDate = (dateString: string) => formatDateLong(dateString);
 
   return (
     <Card 

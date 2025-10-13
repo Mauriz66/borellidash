@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { useNavigate, Link } from 'react-router-dom';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
+import { compareDateAsc, compareDateDesc } from '@/lib/date';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -35,13 +36,13 @@ const Index = () => {
     filtered.sort((a, b) => {
       switch (sortBy) {
         case 'data_solicitacao_desc':
-          return new Date(b.Data_Solicitacao).getTime() - new Date(a.Data_Solicitacao).getTime();
+          return compareDateDesc(a.Data_Solicitacao, b.Data_Solicitacao);
         case 'data_solicitacao_asc':
-          return new Date(a.Data_Solicitacao).getTime() - new Date(b.Data_Solicitacao).getTime();
+          return compareDateAsc(a.Data_Solicitacao, b.Data_Solicitacao);
         case 'data_evento_asc':
-          return new Date(a.Data_Evento).getTime() - new Date(b.Data_Evento).getTime();
+          return compareDateAsc(a.Data_Evento, b.Data_Evento);
         case 'data_evento_desc':
-          return new Date(b.Data_Evento).getTime() - new Date(a.Data_Evento).getTime();
+          return compareDateDesc(a.Data_Evento, b.Data_Evento);
         default:
           return 0;
       }
