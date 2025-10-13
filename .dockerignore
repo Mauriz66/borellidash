@@ -3,7 +3,11 @@ dist
 .git
 .gitignore
 .env
-.env.*
+.env.local
+.env.development
+.env.test
+# Permitir arquivo de produção no build Docker
+!.env.production
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

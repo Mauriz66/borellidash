@@ -65,7 +65,7 @@ export const LeadCard = ({ lead }: LeadCardProps) => {
 
   return (
     <Card 
-      className="p-6 cursor-pointer transition-all hover:shadow-lg border-border bg-card"
+      className="p-6 cursor-pointer transition-all hover:shadow-lg border-border bg-card sm:min-w-[320px]"
       onClick={() => navigate(`/lead/${lead.id}`)}
     >
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
@@ -78,7 +78,7 @@ export const LeadCard = ({ lead }: LeadCardProps) => {
             <p className="text-sm text-muted-foreground">{lead.Tipo_Evento}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 sm:self-start" onClick={(e) => e.stopPropagation()}>
+        <div className="flex flex-col items-start gap-2 sm:self-start" onClick={(e) => e.stopPropagation()}>
           <StatusBadge status={status} />
           <Select
             value={status}

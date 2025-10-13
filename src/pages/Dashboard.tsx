@@ -180,7 +180,7 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
       {/* Header */}
       <header className="bg-card/60 backdrop-blur-md border-b border-border/60 shadow-sm">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto max-w-7xl px-4 py-4">
           <Button 
             variant="ghost" 
             onClick={() => navigate('/')}
@@ -233,7 +233,7 @@ const Dashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto max-w-7xl px-4 py-8">
         {isLoading && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
@@ -370,28 +370,28 @@ const Dashboard = () => {
         {/* Charts Row 1 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Volume de Leads por Mês */}
-          <Card className="p-6">
+          <Card className="p-6 min-w-0">
             <h2 className="text-xl font-semibold text-foreground mb-6">Volume de Leads por Mês</h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={volumePorMes}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="mes" />
                 <YAxis />
-                <Tooltip />
+                <RechartsTooltip />
                 <Bar dataKey="count" fill="#3b82f6" name="Leads" />
               </BarChart>
             </ResponsiveContainer>
           </Card>
 
           {/* Funil de Vendas */}
-          <Card className="p-6">
+          <Card className="p-6 min-w-0">
             <h2 className="text-xl font-semibold text-foreground mb-6">Funil de Vendas</h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={funnelData} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" />
                 <YAxis dataKey="name" type="category" width={120} />
-                <Tooltip />
+                <RechartsTooltip />
                 <Bar dataKey="value" name="Leads">
                   {funnelData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -405,7 +405,7 @@ const Dashboard = () => {
         {/* Charts Row 2 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Distribuição por Status */}
-          <Card className="p-6">
+          <Card className="p-6 min-w-0">
             <h2 className="text-xl font-semibold text-foreground mb-6">Distribuição por Status</h2>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -423,14 +423,14 @@ const Dashboard = () => {
                     <Cell key={`cell-${index}`} fill={COLORS[entry.name as keyof typeof COLORS]} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <RechartsTooltip />
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
           </Card>
 
           {/* Tipos de Evento Mais Comuns */}
-          <Card className="p-6">
+          <Card className="p-6 min-w-0">
             <h2 className="text-xl font-semibold text-foreground mb-6">Tipos de Evento Mais Comuns</h2>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -448,7 +448,7 @@ const Dashboard = () => {
                     <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <RechartsTooltip />
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
@@ -458,14 +458,14 @@ const Dashboard = () => {
         {/* Charts Row 3 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Leads por Localização */}
-          <Card className="p-6">
+          <Card className="p-6 min-w-0">
             <h2 className="text-xl font-semibold text-foreground mb-6">Leads por Localização</h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={leadsPorLocal} layout="horizontal">
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" />
                 <YAxis dataKey="local" type="category" width={100} />
-                <Tooltip />
+                <RechartsTooltip />
                 <Bar dataKey="count" fill="#a855f7" name="Leads" />
               </BarChart>
             </ResponsiveContainer>

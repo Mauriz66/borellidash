@@ -6,10 +6,13 @@ Este projeto é um SPA (Vite/React). Em produção, sirva `dist` com Nginx.
 ### Opção recomendada: Dockerfile
 
 1. Confirme `Dockerfile` e `nginx.conf` na raiz (incluídos neste repo).
-2. Configure variáveis `VITE_*` no painel (ou `.env.production` sem segredos).
-3. No EasyPanel, crie App → selecione `Dockerfile`.
-4. Porta do contêiner: `80`. Configure domínio/SSL.
-5. (Opcional) Deploy automático na branch desejada.
+2. No EasyPanel, crie um App → tipo "Dockerfile" e aponte para o repositório.
+3. Defina as variáveis de build (Build Args):
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_PUBLISHABLE_KEY`
+   Essas variáveis são injetadas no build do Vite e usadas em `src/integrations/supabase/client.ts`.
+4. Configure a Porta do contêiner como `80`. Ative domínio/SSL conforme necessário.
+5. (Opcional) Habilite deploy automático na branch desejada.
 
 ### Build local (opcional)
 
@@ -23,6 +26,12 @@ Abra `http://localhost:8080`.
 ### Subpath
 
 Se publicar em subpath (ex.: `/app/`), ajuste `base` no `vite.config.ts`.
+
+### Dicas para EasyPanel
+
+- Se preferir usar compose, o `docker-compose.yml` já inclui `build.args` para `VITE_*` e expõe `80`.
+- Evite colocar chaves secretas no front-end. Use apenas a chave pública (publishable/anon) do Supabase.
+- Após deploy, valide que a app responde no domínio configurado e que as listas de leads carregam (checa integração Supabase).
 
 ## Project info
 
