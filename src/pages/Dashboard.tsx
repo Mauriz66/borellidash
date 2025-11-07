@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchLeads } from '@/services/leads';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, TrendingUp, DollarSign, Users, Target, Calendar } from 'lucide-react';
+import { ArrowLeft, TrendingUp, DollarSign, Users, Target, Calendar, LogOut } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip as RechartsTooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid, FunnelChart, Funnel, LabelList } from 'recharts';
@@ -12,10 +12,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Skeleton } from '@/components/ui/skeleton';
 import { Lead } from '@/types/lead';
 import { parseLocalDateString } from '@/lib/date';
+import { supabase } from '@/integrations/supabase/client';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [dateFilter, setDateFilter] = useState('all');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/login');
+  };
   const { data: leads, isLoading, isError, error } = useQuery<Lead[], Error>({
     queryKey: ['leads'],
     queryFn: fetchLeads,
@@ -228,6 +233,15 @@ const Dashboard = () => {
                   <SelectItem value="thisYear">Este ano</SelectItem>
                 </SelectContent>
               </Select>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="outline" size="sm" onClick={handleLogout} className="gap-2">
+                    <LogOut className="w-4 h-4" />
+                    Sair
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Sair da conta</TooltipContent>
+              </Tooltip>
             </div>
           </div>
         </div>
